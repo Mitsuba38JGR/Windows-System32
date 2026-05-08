@@ -1,1 +1,55 @@
-a
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>_mityaki_ OS 0.0.1</title>
+<style>
+  header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #1a73e8;
+    color: white;
+    padding: 10px;
+  }
+  footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: black;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>_mityaki_ OS Login</h1>
+</header>
+
+<br><br><br><br><br><br>
+
+<input id="UN" type="text" placeholder="Input User Name here..."><br><br>
+<input id="PW" type="password" placeholder="Input Password here..."><br>
+<button onclick="b1()">Next</button>
+
+<footer>
+  <p>@2026 _mityaki_</p>
+</footer>
+
+<script>
+function b1() {
+  let UN = document.getElementById("UN").value;
+  let PW = document.getElementById("PW").value;
+  console.log("moving now...");
+  alert("moving now...");
+  window.location.href = "_mityaki_ OS RE.html";
+}
+</script>
+
+</body>
+</html>
