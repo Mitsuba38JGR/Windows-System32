@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<title>_mityaki OS Recovery Environment</title>
+
+<style>
+body {
+    background: #1a73e8;
+    color: white;
+    font-family: "Segoe UI Variable", "Segoe UI", sans-serif;
+    margin: 0;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #1a73e8;
+    color: white;
+    padding: 12px;
+    font-size: 22px;
+}
+
+/* ▼ 2×3 グリッド */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 110px);
+    gap: 14px;
+    width: 80%;
+    margin: 120px auto 0 auto;
+}
+
+/* ▼ ボタン本体（アイコン＋テキスト） */
+.grid-item {
+    display: flex;
+    align-items: center;
+    background: #1a73e8;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    outline: none;
+}
+
+/* 選択時だけ白枠 */
+.grid-item:hover,
+.grid-item:focus {
+    border: 2px solid #ffffff;
+}
+
+/* ▼ 左のアイコン（正方形） */
+.icon-box {
+    width: 70px;
+    height: 70px;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.icon-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* ▼ テキスト部分 */
+.text-box h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.text-box p {
+    margin: 4px 0 0 0;
+    font-size: 14px;
+    font-weight: 400;
+    opacity: 0.9;
+}
+
+/* ▼ 空欄（枠なし・透明） */
+.empty {
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+}
+
+/* ▼ ページリンク */
+#more {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#more a {
+    color: white;
+    font-size: 18px;
+    text-decoration: underline;
+}
+</style>
+
+</head>
+<body>
+
+<header>Option Selecting</header>
+
+<div class="grid" id="grid"></div>
+<div id="more"></div>
+
+<script>
+/* ▼ ボタン一覧（ここに追加すればページ2が自動生成） */
+const buttons = [
+    { title: "Continue", desc: "終了して _mityaki OS に進みます", icon: "icons/Cont.png", action: () => b1() },
+    { title: "Use Device", desc: "USB / DVD / ネットワークを使用します", icon: "icons/UseD.png", action: () => b2() },
+    { title: "Trouble Shooting", desc: "PC を初期状態に戻すか詳細オプションを表示します", icon: "icons/TS.png", action: () => b3() },
+    { title: "Shutdown", desc: "PC の電源を切ります", icon: "icons/SD.png", action: () => b4() },
+];
+
+/* ▼ 並び順：1,4 / 2,5 / 3,6 */
+const ORDER = [0, 3, 1, 4, 2, 5];
+
+function render(page = 1) {
+    const perPage = 6;
+    const start = (page - 1) * perPage;
+    const pageItems = buttons.slice(start, start + perPage);
+
+    const grid = document.getElementById("grid");
+    const more = document.getElementById("more");
+    grid.innerHTML = "";
+    more.innerHTML = "";
+
+    for (let i = 0; i < perPage; i++) {
+        const pos = ORDER[i];
+        const item = pageItems[pos];
+
+        if (item) {
+            const div = document.createElement("div");
+            div.className = "grid-item";
+            div.onclick = item.action;
+
+            div.innerHTML = `
+                <div class="icon-box">
+                    <img src="${item.icon}">
+                </div>
+                <div class="text-box">
+                    <h2>${item.title}</h2>
+                    <p>${item.desc}</p>
+                </div>
+            `;
+
+            grid.appendChild(div);
+        } else {
+            const empty = document.createElement("div");
+            empty.className = "empty";
+            grid.appendChild(empty);
+        }
+    }
+
+    if (buttons.length > start + perPage) {
+        const link = document.createElement("a");
+        link.href = "javascript:void(0)";
+        link.textContent = "その他のデバイスを表示";
+        link.onclick = () => render(page + 1);
+        more.appendChild(link);
+    }
+}
+
+/* ▼ 動作 */
+function b1() { alert("Continue"); }
+function b2() { alert("Use Device"); }
+function b3() { alert("Trouble Shooting"); }
+function b4() { alert("Shutdown"); }
+
+/* ▼ 初期表示 */
+render();
+</script>
+
+</body>
+</html>
