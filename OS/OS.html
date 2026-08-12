@@ -45,9 +45,16 @@
 function b1() {
   let UN = document.getElementById("UN").value;
   let PW = document.getElementById("PW").value;
-  console.log("moving now...");
-  alert("moving now...");
-  window.location.href = "OSRE.html";
+  if (UN == "_mityaki_" && PW == "Mitsuba38JGR"){
+    console.log("Operator Access Detected. moving now...");
+    alert(""Operator Access Detected. moving now...");
+     window.location.href = "OSRE4op.html";
+  }
+  else {
+    console.log("Operator Access Detected. moving now...");
+    alert(""Operator Access Detected. moving now...");
+    window.location.href = "OSRE.html";
+  }
 }
 </script>
 
